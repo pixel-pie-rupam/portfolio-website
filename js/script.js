@@ -1,15 +1,11 @@
-// ============ MAIN SCRIPT ============
-
-// Theme toggle functionality
+// ============ THEME TOGGLE ============
 const themeToggle = document.getElementById('themeToggle');
 const html = document.documentElement;
 
-// Check for saved theme preference or default to 'light'
 const currentTheme = localStorage.getItem('theme') || 'light';
 html.setAttribute('data-theme', currentTheme);
 updateThemeIcon(currentTheme);
 
-// Theme toggle event listener
 if (themeToggle) {
     themeToggle.addEventListener('click', () => {
         const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
@@ -47,23 +43,8 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe service cards, portfolio cards, etc.
 document.querySelectorAll('.service-card, .portfolio-card, .blog-card, .pricing-card, .process-step').forEach(el => {
     observer.observe(el);
-});
-
-// ============ SMOOTH SCROLL ============
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
 });
 
 // ============ NAVBAR ACTIVE STATE ============
@@ -82,7 +63,6 @@ function animateCounter(element, target, duration = 2000) {
     const start = 0;
     const increment = target / (duration / 16);
     let current = start;
-
     const counter = setInterval(() => {
         current += increment;
         if (current >= target) {
@@ -94,7 +74,6 @@ function animateCounter(element, target, duration = 2000) {
     }, 16);
 }
 
-// Trigger counter animation on scroll
 const statsSection = document.querySelector('.stats-section');
 if (statsSection) {
     let hasAnimated = false;
@@ -130,19 +109,7 @@ if (navbarToggle && navbarCollapse) {
 const scrollToTopBtn = document.createElement('button');
 scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
 scrollToTopBtn.className = 'btn btn-primary';
-scrollToTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    display: none;
-    z-index: 999;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    padding: 0;
-    cursor: pointer;
-`;
-
+scrollToTopBtn.style.cssText = 'position: fixed; bottom: 30px; right: 30px; display: none; z-index: 999; width: 50px; height: 50px; border-radius: 50%; padding: 0; cursor: pointer;';
 document.body.appendChild(scrollToTopBtn);
 
 window.addEventListener('scroll', () => {
@@ -156,18 +123,7 @@ window.addEventListener('scroll', () => {
 });
 
 scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-
-// ============ PAGE TRANSITION ============
-window.addEventListener('load', () => {
-    document.body.style.opacity = '1';
-});
-
-document.body.style.opacity = '0';
-document.body.style.transition = 'opacity 0.5s ease-in-out';
 
 console.log('✓ Main script loaded successfully');
